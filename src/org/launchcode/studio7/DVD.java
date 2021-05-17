@@ -8,10 +8,10 @@ public class DVD extends BaseDisc implements OpticalDisc {
     }
     @Override
     public void readData(){
-        System.out.println("DVD is also reading data!");
+        System.out.println("A DVD spins at a rate of 570-1600 RPM");
     }
     @Override
     public void spinDisc(){
-        System.out.println("The rate at which it spins is 600!");
+        System.out.println("Troop wuuuv");
     }
 }

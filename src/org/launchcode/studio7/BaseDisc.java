@@ -4,29 +4,48 @@ public abstract class BaseDisc {
     private String name;
     private int storageCapacity;
     private String typeOfDisc;
-    private int someUsedCapacity;
+    private int usedCapacity;
+    private int aRemainingCapacity;
 
 
-    public BaseDisc(String aName, int maxCapacity, String aType, int someUsedCapacity) {
+    public BaseDisc(String aName, int maxCapacity, String aType, int someUsedCapacity, int remainingCapacity) {
         name = aName;
         storageCapacity = maxCapacity;
         typeOfDisc = aType;
-        this.someUsedCapacity = someUsedCapacity;
+        usedCapacity = someUsedCapacity;
+        aRemainingCapacity = remainingCapacity;
     }
 
-    public int getStorageCapacity() {
-        return storageCapacity;
+    public BaseDisc(String aName, int maxCapacity, String aType, int someUsedCapacity) {
     }
 
-    public void setStorageCapacity(int storageCapacity) {
-        this.storageCapacity = storageCapacity;
+    private int checkCapacity(int dataWritten) {
+        if (storageCapacity < dataWritten) {
+            return storageCapacity;
+        }
+        return dataWritten;
     }
 
-    public String getName() {
-        return name;
+    private int spaceLeft() {
+        return storageCapacity - usedCapacity;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String diskInfo() {
+        String output = String.format("\nDisk name: %s\nMax capacity:%d" +
+                "\nSpace used: %d" +
+                "\nAvailable space: %d\n", name, storageCapacity, usedCapacity, aRemainingCapacity);
+        return output;
     }
+
+    public String writeData(int dataSize) {
+        if (dataSize > aRemainingCapacity) {
+            return "Not enough disk enough";
+        }
+        usedCapacity += dataSize;
+        aRemainingCapacity -= dataSize;
+
+        return "data written to disc. Remaining space = " + aRemainingCapacity;
+    }
+
 }
+
